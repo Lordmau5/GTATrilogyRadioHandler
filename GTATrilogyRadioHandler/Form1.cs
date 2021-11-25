@@ -7,29 +7,46 @@ namespace GTATrilogyRadioHandler
 {
     public partial class GTATrilogyRadioHandler : Form
     {
+        private static string Version = "v1.1";
+
         // TODO: Dynamic list of programs, perhaps also a process selector with checkboxes?
-        private string[] programs =
+        private readonly string[] programs =
         {
             "spotify",
             "musicbee",
             "winamp"
         };
 
-        private bool Initialized { get; set; }
-        private System.Timers.Timer timer;
+        private bool initialized;
+        private readonly System.Timers.Timer timer;
 
         public GTATrilogyRadioHandler()
         {
             InitializeComponent();
 
-            this.MaximizeBox = false;
-            this.FormBorderStyle = FormBorderStyle.FixedDialog;
+            Text += $" ({Version})";
+
+            MaximizeBox = false;
+            FormBorderStyle = FormBorderStyle.FixedDialog;
+
+            foreach(var process in System.Diagnostics.Process.GetProcesses())
+            {
+                if (!checkListPrograms.Items.Contains(process.ProcessName))
+                {
+                    // TODO: Dynamic list in new window so you can add programs.
+                    // Either that, or dynamically tick boxes on launch and refresh every X seconds / with refresh button
+                    if (process.MainWindowHandle != IntPtr.Zero && process.MainWindowTitle != String.Empty)
+                    {
+                        checkListPrograms.Items.Add(process.ProcessName + " - " + process.MainWindowTitle);
+                    }
+                }
+            }
 
             GameHandler.OnGameExit += (_sender, _e) =>
             {
                 this.PerformSafely(() =>
                 {
-                    Initialized = false;
+                    initialized = false;
                     SetInitializeButtonStates(true);
                     VolumeMixer.SetProgramsMuted(programs, false);
                 });
@@ -46,7 +63,7 @@ namespace GTATrilogyRadioHandler
 
         private void OnTimerTick(object sender, System.Timers.ElapsedEventArgs e)
         {
-            if (!Initialized)
+            if (!initialized)
             {
                 return;
             }
@@ -77,7 +94,7 @@ namespace GTATrilogyRadioHandler
                 return;
             }
 
-            Initialized = true;
+            initialized = true;
         }
 
         private void buttonGTAViceCity_Click(object sender, EventArgs e)
@@ -91,7 +108,7 @@ namespace GTATrilogyRadioHandler
                 return;
             }
 
-            Initialized = true;
+            initialized = true;
         }
 
         private void buttonGTASanAndreas_Click(object sender, EventArgs e)
@@ -105,7 +122,7 @@ namespace GTATrilogyRadioHandler
                 return;
             }
 
-            Initialized = true;
+            initialized = true;
         }
     }
 }

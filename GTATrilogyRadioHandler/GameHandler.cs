@@ -21,7 +21,7 @@ namespace GTATrilogyRadioHandler
         {
             if (Process == null)
             {
-                Process = GetGameProcess(Game);
+                Process = GetGameProcess();
                 if (Process == null)
                 {
                     return false;
@@ -30,6 +30,7 @@ namespace GTATrilogyRadioHandler
                 Process.ProcessExited += (_sender, _e) =>
                 {
                     Process = null;
+                    Player = IntPtr.Zero;
 
                     OnGameExit.Invoke(_sender, _e);
                 };
@@ -37,7 +38,7 @@ namespace GTATrilogyRadioHandler
 
             if (Player == IntPtr.Zero)
             {
-                Player = GetPlayerPointer(Process);
+                Player = GetPlayerPointer();
                 if (Player == null || Player == IntPtr.Zero)
                 {
                     return false;
@@ -45,18 +46,6 @@ namespace GTATrilogyRadioHandler
             }
 
             return true;
-        }
-
-        private static IntPtr GetFromPointer(ProcessSharp m, IntPtr address, int[] offsets)
-        {
-            IntPtr finalAddress = address;
-
-            foreach (var offset in offsets)
-            {
-                finalAddress = m[finalAddress].Read<IntPtr>(offset);
-            }
-
-            return finalAddress;
         }
 
         private static T GetFromPattern<T>(ProcessSharp m, IMemoryPattern pattern, int offset = 0, int ripOffset = 4)
@@ -74,9 +63,9 @@ namespace GTATrilogyRadioHandler
             return m[pointer].Read<T>(0x0);
         }
 
-        private static ProcessSharp GetGameProcess(string game)
+        private static ProcessSharp GetGameProcess()
         {
-            var processes = System.Diagnostics.Process.GetProcessesByName(game);
+            var processes = System.Diagnostics.Process.GetProcessesByName(Game);
             if (processes.Length == 0) return null;
 
             var process = new ProcessSharp(processes.First(), MemoryType.Local);
@@ -85,7 +74,7 @@ namespace GTATrilogyRadioHandler
             return process;
         }
 
-        private static IntPtr GetPlayerPointer(ProcessSharp process)
+        private static IntPtr GetPlayerPointer()
         {
             /*
                 0f b6 05 ? ? ? ? 
@@ -95,7 +84,7 @@ namespace GTATrilogyRadioHandler
             */
             IMemoryPattern PlayerPointer = new DwordPattern("0f b6 05 ? ? ? ? ? 8d 0d ? ? ? ? ? 69 c0 ? ? ? ? ? 8b 04 ?");
 
-            return GetFromPattern<IntPtr>(process, PlayerPointer, 10);
+            return GetFromPattern<IntPtr>(Process, PlayerPointer, 10);
         }
 
         public static bool GetIsPlayerInVehicle()
