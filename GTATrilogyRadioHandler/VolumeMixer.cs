@@ -62,12 +62,12 @@ namespace GTATrilogyRadioHandler
             }
         }
 
-        public static void SetProgramsMuted(string[] programs, bool state)
+        public static void SetProgramsMuted(List<string> programs, bool state)
         {
             List<int> processes = new List<int>();
             foreach (var process in System.Diagnostics.Process.GetProcesses())
             {
-                if (programs.Contains(process.ProcessName.ToLower()))
+                if (programs.Contains(process.ProcessName, StringComparer.OrdinalIgnoreCase))
                 {
                     if (process.MainWindowHandle != IntPtr.Zero)
                     {
@@ -91,7 +91,7 @@ namespace GTATrilogyRadioHandler
         {
             List<SimpleAudioVolume> volumeControls = new List<SimpleAudioVolume>();
 
-            var deviceEnumerator = new NAudio.CoreAudioApi.MMDeviceEnumerator();
+            var deviceEnumerator = new MMDeviceEnumerator();
 
             for (int i = 0; i < WaveOut.DeviceCount; i++)
             {

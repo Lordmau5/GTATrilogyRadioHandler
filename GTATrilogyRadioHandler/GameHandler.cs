@@ -26,10 +26,12 @@ namespace GTATrilogyRadioHandler
 
                 Process.ProcessExited += (_sender, _e) =>
                 {
-                    Process = null;
-                    Player = IntPtr.Zero;
+                    ClearReferences(_sender);
+                };
 
-                    OnGameExit.Invoke(_sender, _e);
+                Process.OnDispose += (_sender, _e) =>
+                {
+                    ClearReferences(_sender);
                 };
             }
 
@@ -43,6 +45,19 @@ namespace GTATrilogyRadioHandler
             }
 
             return true;
+        }
+
+        private static void ClearReferences(object sender)
+        {
+            Process = null;
+            Player = IntPtr.Zero;
+
+            OnGameExit?.Invoke(sender, EventArgs.Empty);
+        }
+
+        public static void Unhook()
+        {
+            Process?.Dispose();
         }
 
         private static T GetFromPattern<T>(ProcessSharp m, IMemoryPattern pattern, int offset = 0, int ripOffset = 4)

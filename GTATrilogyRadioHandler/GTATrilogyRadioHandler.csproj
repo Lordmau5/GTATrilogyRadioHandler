@@ -74,6 +74,9 @@
     <Reference Include="NAudio, Version=1.10.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\NAudio.1.10.0\lib\net35\NAudio.dll</HintPath>
     </Reference>
+    <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.13.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="Process.NET, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Process.NET.1.0.8\lib\Process.NET.dll</HintPath>
     </Reference>
@@ -215,7 +218,14 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Config.cs" />
     <Compile Include="CrossThreadExtensions.cs" />
+    <Compile Include="FormAddProgram.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormAddProgram.Designer.cs">
+      <DependentUpon>FormAddProgram.cs</DependentUpon>
+    </Compile>
     <Compile Include="GameHandler.cs" />
     <Compile Include="VolumeMixer.cs" />
     <Compile Include="Form1.cs">
@@ -228,6 +238,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormAddProgram.resx">
+      <DependentUpon>FormAddProgram.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
