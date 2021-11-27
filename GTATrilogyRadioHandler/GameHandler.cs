@@ -14,6 +14,16 @@ namespace GTATrilogyRadioHandler
 
         public static EventHandler OnGameExit;
 
+
+        /*
+            0f b6 05 ? ? ? ? 
+            ? 8d 0d ? ? ? ? 
+            ? 69 c0 ? ? ? ? 
+            ? 8b 04 ?
+        */
+        private static readonly IMemoryPattern PlayerPointer = new DwordPattern("0f b6 05 ? ? ? ? ? 8d 0d ? ? ? ? ? 69 c0 ? ? ? ? ? 8b 04 ?");
+        private static PatternScanner PatternScanner = null;
+
         public static bool Initialize()
         {
             if (Process == null)
@@ -49,8 +59,7 @@ namespace GTATrilogyRadioHandler
 
         private static void ClearReferences(object sender)
         {
-            Process = null;
-            Player = IntPtr.Zero;
+            Unhook();
 
             OnGameExit?.Invoke(sender, EventArgs.Empty);
         }
@@ -58,14 +67,14 @@ namespace GTATrilogyRadioHandler
         public static void Unhook()
         {
             Process?.Dispose();
+
+            Process = null;
+            Player = IntPtr.Zero;
         }
 
         private static T GetFromPattern<T>(ProcessSharp m, IMemoryPattern pattern, int offset = 0, int ripOffset = 4)
         {
-            var module = m.ModuleFactory.MainModule;
-            var scanner = new PatternScanner(module);
-
-            var scan = scanner.Find(pattern);
+            var scan = PatternScanner.Find(pattern);
 
             var address = scan.BaseAddress;
             var middleOffset = m[address].Read<int>(offset);
@@ -83,19 +92,14 @@ namespace GTATrilogyRadioHandler
             var process = new ProcessSharp(processes.First(), MemoryType.Local);
             process.Memory = new ExternalProcessMemory(process.Handle);
 
+            var module = process.ModuleFactory.MainModule;
+            PatternScanner = new PatternScanner(module);
+
             return process;
         }
 
         private static IntPtr GetPlayerPointer()
         {
-            /*
-                0f b6 05 ? ? ? ? 
-                ? 8d 0d ? ? ? ? 
-                ? 69 c0 ? ? ? ? 
-                ? 8b 04 ?
-            */
-            IMemoryPattern PlayerPointer = new DwordPattern("0f b6 05 ? ? ? ? ? 8d 0d ? ? ? ? ? 69 c0 ? ? ? ? ? 8b 04 ?");
-
             return GetFromPattern<IntPtr>(Process, PlayerPointer, 10);
         }
 

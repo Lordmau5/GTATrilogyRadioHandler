@@ -10,7 +10,7 @@ namespace GTATrilogyRadioHandler
 {
     public class Config
     {
-        public static string Version = "v1.2";
+        public static string Version = "v1.3";
 
         private static Config _instance;
         private static readonly string configPath = Path.Combine(Directory.GetCurrentDirectory(), "config.cfg");

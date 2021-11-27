@@ -2,17 +2,13 @@
 A small tool that un-/mutes specific programs through the Windows volume mixer when the player is / isn't in a vehicle
 
 # Usage
-1. Go ingame at least once (New Game, Loaded Game, etc. - basically walking around)
-2. Start the tool
-3. Select which game you are playing
-4. If the buttons for the games stay grayed out, it's hooked and you can start playing
-5. It will mute the listed programs when on-foot, and un-mute them when in a car
+1. Start the game and tool
+2. Select which game you are playing by pressing on the corresponding button
+3. Wait for the dialog to close for hooking
+4. It will mute the listed programs when on-foot, and un-mute them when in a car
 
 # Supported programs
-- Anything you add via. the list (in theory)
+- Anything you add via. the list (in theory, since it's utilizing the Windows Volume Mixer)
 
 # TODO
-- Dialog for periodic hook check so it can be started without having to ingame at least once
-    - Waiting for game...
-    - Button: Cancel Hook
-- More testing? idk
+- Nothing right now

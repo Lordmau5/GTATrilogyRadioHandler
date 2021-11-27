@@ -48,7 +48,7 @@
             this.buttonAddSelectedPrograms.TabIndex = 1;
             this.buttonAddSelectedPrograms.Text = "Add Selected Programs";
             this.buttonAddSelectedPrograms.UseVisualStyleBackColor = true;
-            this.buttonAddSelectedPrograms.Click += new System.EventHandler(this.buttonAddSelectedPrograms_Click);
+            this.buttonAddSelectedPrograms.Click += new System.EventHandler(this.ButtonAddSelectedPrograms_Click);
             // 
             // FormAddProgram
             // 

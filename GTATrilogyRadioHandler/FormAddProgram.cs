@@ -46,7 +46,7 @@ namespace GTATrilogyRadioHandler
             }
         }
 
-        private void buttonAddSelectedPrograms_Click(object sender, EventArgs e)
+        private void ButtonAddSelectedPrograms_Click(object sender, EventArgs e)
         {
             List<string> programs = new List<string>();
             foreach(CheckBoxProgram checkbox in checkedListBoxPrograms.CheckedItems)

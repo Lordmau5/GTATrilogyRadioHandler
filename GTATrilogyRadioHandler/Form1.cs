@@ -95,63 +95,60 @@ namespace GTATrilogyRadioHandler
             buttonGTASanAndreas.Enabled = state;
         }
 
-        private void buttonGTA3_Click(object sender, EventArgs e)
+        private void HookGame(string game)
         {
+            FormHookGame formHookGame = new FormHookGame(game);
+
+            initialized = false;
             SetInitializeButtonStates(false);
 
-            GameHandler.Game = "LibertyCity";
-            if (!GameHandler.Initialize())
+            formHookGame.OnGameHooked += (_sender, _e) =>
             {
-                SetInitializeButtonStates(true);
-                return;
-            }
+                this.PerformSafely(() =>
+                {
+                    initialized = true;
+                    buttonUnhook.Enabled = true;
+                    buttonPauseResume.Enabled = true;
 
-            initialized = true;
+                    formHookGame.Close();
+                });
+            };
 
-            buttonUnhook.Enabled = true;
-            buttonPauseResume.Enabled = true;
+            formHookGame.FormClosed += (_sender, _e) =>
+            {
+                this.PerformSafely(() =>
+                {
+                    if (!initialized)
+                    {
+                        SetInitializeButtonStates(true);
+                    }
+                });
+            };
+
+            formHookGame.ShowDialog();
         }
 
-        private void buttonGTAViceCity_Click(object sender, EventArgs e)
+        private void ButtonGTA3_Click(object sender, EventArgs e)
         {
-            SetInitializeButtonStates(false);
-
-            GameHandler.Game = "ViceCity";
-            if (!GameHandler.Initialize())
-            {
-                SetInitializeButtonStates(true);
-                return;
-            }
-
-            initialized = true;
-
-            buttonUnhook.Enabled = true;
-            buttonPauseResume.Enabled = true;
+            HookGame("LibertyCity");
         }
 
-        private void buttonGTASanAndreas_Click(object sender, EventArgs e)
+        private void ButtonGTAViceCity_Click(object sender, EventArgs e)
         {
-            SetInitializeButtonStates(false);
-
-            GameHandler.Game = "SanAndreas";
-            if (!GameHandler.Initialize())
-            {
-                SetInitializeButtonStates(true);
-                return;
-            }
-
-            initialized = true;
-
-            buttonUnhook.Enabled = true;
-            buttonPauseResume.Enabled = true;
+            HookGame("ViceCity");
         }
 
-        private void buttonUnhook_Click(object sender, EventArgs e)
+        private void ButtonGTASanAndreas_Click(object sender, EventArgs e)
+        {
+            HookGame("SanAndreas");
+        }
+
+        private void ButtonUnhook_Click(object sender, EventArgs e)
         {
             GameHandler.Unhook();
         }
 
-        private void buttonPauseResume_Click(object sender, EventArgs e)
+        private void ButtonPauseResume_Click(object sender, EventArgs e)
         {
             paused = !paused;
 
@@ -163,7 +160,7 @@ namespace GTATrilogyRadioHandler
             }
         }
 
-        private void buttonAddPrograms_Click(object sender, EventArgs e)
+        private void ButtonAddPrograms_Click(object sender, EventArgs e)
         {
             FormAddProgram formAddProgram = new FormAddProgram(Config.Instance().Programs);
 
@@ -198,16 +195,16 @@ namespace GTATrilogyRadioHandler
             formAddProgram.ShowDialog();
         }
 
-        private void buttonRemoveSelectedProgram_Click(object sender, EventArgs e)
+        private void ListBoxPrograms_KeyDown(object sender, KeyEventArgs e)
         {
-            if (Control.ModifierKeys == Keys.Shift)
+            if (e.KeyCode == Keys.Delete && Control.ModifierKeys == Keys.Shift)
             {
                 if (listBoxPrograms.SelectedIndex == -1)
                 {
                     return;
                 }
 
-                string program = (string) listBoxPrograms.SelectedItem;
+                string program = (string)listBoxPrograms.SelectedItem;
 
                 Config.Instance().Programs.Remove(program);
 
