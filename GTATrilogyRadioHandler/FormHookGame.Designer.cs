@@ -43,11 +43,11 @@
             // 
             // FormHookGame
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(311, 49);
             this.Controls.Add(this.buttonCancel);
-            this.Location = new System.Drawing.Point(327, 88);
+            this.MaximumSize = new System.Drawing.Size(327, 88);
             this.MinimumSize = new System.Drawing.Size(327, 88);
             this.Name = "FormHookGame";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
@@ -58,6 +58,6 @@
 
         #endregion
 
-        private System.Windows.Forms.Button buttonCancel;
+        private Button buttonCancel;
     }
 }

@@ -10,12 +10,12 @@ using System.Windows.Forms;
 
 namespace GTATrilogyRadioHandler
 {
-    public partial class FormAddProgram : Form
+    public partial class FormAddPrograms : Form
     {
-        public EventHandler<AddProgramsEventArgs> OnProgramsAdded;
+        public EventHandler<AddProgramsEventArgs>? OnProgramsAdded;
         private readonly List<string> AddedPrograms;
 
-        public FormAddProgram(List<string> addedPrograms)
+        public FormAddPrograms(List<string> addedPrograms)
         {
             InitializeComponent();
 
@@ -49,7 +49,7 @@ namespace GTATrilogyRadioHandler
         private void ButtonAddSelectedPrograms_Click(object sender, EventArgs e)
         {
             List<string> programs = new List<string>();
-            foreach(CheckBoxProgram checkbox in checkedListBoxPrograms.CheckedItems)
+            foreach (CheckBoxProgram checkbox in checkedListBoxPrograms.CheckedItems)
             {
                 programs.Add(checkbox.GetProcessName());
             }

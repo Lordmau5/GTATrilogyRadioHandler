@@ -1,6 +1,6 @@
 ﻿namespace GTATrilogyRadioHandler
 {
-    partial class FormAddProgram
+    partial class FormAddPrograms
     {
         /// <summary>
         /// Required designer variable.
@@ -32,34 +32,34 @@
             this.buttonAddSelectedPrograms = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
-            // checkedListBoxPrograms
+            // checkedListBox1
             // 
             this.checkedListBoxPrograms.FormattingEnabled = true;
             this.checkedListBoxPrograms.Location = new System.Drawing.Point(12, 12);
-            this.checkedListBoxPrograms.Name = "checkedListBoxPrograms";
-            this.checkedListBoxPrograms.Size = new System.Drawing.Size(549, 244);
+            this.checkedListBoxPrograms.Name = "checkedListBox1";
+            this.checkedListBoxPrograms.Size = new System.Drawing.Size(549, 238);
             this.checkedListBoxPrograms.TabIndex = 0;
             // 
             // buttonAddSelectedPrograms
             // 
-            this.buttonAddSelectedPrograms.Location = new System.Drawing.Point(12, 262);
+            this.buttonAddSelectedPrograms.Location = new System.Drawing.Point(12, 258);
             this.buttonAddSelectedPrograms.Name = "buttonAddSelectedPrograms";
-            this.buttonAddSelectedPrograms.Size = new System.Drawing.Size(146, 23);
+            this.buttonAddSelectedPrograms.Size = new System.Drawing.Size(146, 26);
             this.buttonAddSelectedPrograms.TabIndex = 1;
             this.buttonAddSelectedPrograms.Text = "Add Selected Programs";
             this.buttonAddSelectedPrograms.UseVisualStyleBackColor = true;
             this.buttonAddSelectedPrograms.Click += new System.EventHandler(this.ButtonAddSelectedPrograms_Click);
             // 
-            // FormAddProgram
+            // FormAddPrograms
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(573, 296);
             this.Controls.Add(this.buttonAddSelectedPrograms);
             this.Controls.Add(this.checkedListBoxPrograms);
             this.MaximumSize = new System.Drawing.Size(589, 335);
             this.MinimumSize = new System.Drawing.Size(589, 335);
-            this.Name = "FormAddProgram";
+            this.Name = "FormAddPrograms";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Add Programs";
             this.Load += new System.EventHandler(this.OnLoad);
@@ -69,7 +69,7 @@
 
         #endregion
 
-        private System.Windows.Forms.CheckedListBox checkedListBoxPrograms;
-        private System.Windows.Forms.Button buttonAddSelectedPrograms;
+        private Button buttonAddSelectedPrograms;
+        private CheckedListBox checkedListBoxPrograms;
     }
 }

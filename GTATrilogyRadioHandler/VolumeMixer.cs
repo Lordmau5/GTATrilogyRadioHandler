@@ -1,8 +1,5 @@
 ﻿using NAudio.CoreAudioApi;
 using NAudio.Wave;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace GTATrilogyRadioHandler
 {
@@ -22,7 +19,7 @@ namespace GTATrilogyRadioHandler
             List<SimpleAudioVolume> volumes = GetVolumeObjects(pid);
             if (volumes.Count == 0)
                 return null;
-            
+
             return volumes.First().Mute;
         }
 

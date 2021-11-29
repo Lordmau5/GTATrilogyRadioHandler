@@ -1,10 +1,4 @@
 ﻿using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace GTATrilogyRadioHandler
 {
@@ -12,7 +6,7 @@ namespace GTATrilogyRadioHandler
     {
         public static string Version = "v1.3";
 
-        private static Config _instance;
+        private static Config? _instance;
         private static readonly string configPath = Path.Combine(Directory.GetCurrentDirectory(), "config.cfg");
 
         // Config options
@@ -27,7 +21,7 @@ namespace GTATrilogyRadioHandler
             return _instance;
         }
 
-        public static void SetInstance(Config instance)
+        public static void SetInstance(Config? instance)
         {
             _instance = instance;
         }

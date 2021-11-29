@@ -15,7 +15,7 @@ namespace GTATrilogyRadioHandler
         private readonly System.Timers.Timer timer;
         private bool initialized;
 
-        public EventHandler OnGameHooked;
+        public EventHandler? OnGameHooked;
 
         public FormHookGame(string game)
         {
@@ -27,7 +27,7 @@ namespace GTATrilogyRadioHandler
             GameHandler.Game = game;
             Text = $"Hooking {game}...";
 
-            timer = new System.Timers.Timer(500)
+            timer = new System.Timers.Timer(1000)
             {
                 AutoReset = true,
                 Enabled = true
@@ -36,15 +36,17 @@ namespace GTATrilogyRadioHandler
             timer.Elapsed += OnTimerTick;
         }
 
-        private void OnTimerTick(object sender, System.Timers.ElapsedEventArgs e)
+        private async void OnTimerTick(object? sender, System.Timers.ElapsedEventArgs e)
         {
             if (initialized)
             {
                 timer.Enabled = false;
+
+                OnGameHooked?.Invoke(this, EventArgs.Empty);
                 return;
             }
 
-            if (initialized || GameHandler.Initialize())
+            if (await GameHandler.Initialize())
             {
                 initialized = true;
                 timer.Enabled = false;

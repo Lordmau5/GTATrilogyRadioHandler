@@ -1,18 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Windows.Forms;
-
 using CrossThreadExtensions;
 
 namespace GTATrilogyRadioHandler
 {
-    public partial class GTATrilogyRadioHandler : Form
+    public partial class FormMain : Form
     {
         private bool initialized;
         private bool paused;
         private readonly System.Timers.Timer timer;
 
-        public GTATrilogyRadioHandler()
+        public FormMain()
         {
             InitializeComponent();
 
@@ -42,6 +38,18 @@ namespace GTATrilogyRadioHandler
             timer.Elapsed += OnTimerTick;
         }
 
+        private void OnClosing(object sender, FormClosingEventArgs e)
+        {
+            VolumeMixer.SetProgramsMuted(Config.Instance().Programs, false);
+        }
+
+        private void SetInitializeButtonStates(bool state)
+        {
+            buttonGTA3.Enabled = state;
+            buttonGTAViceCity.Enabled = state;
+            buttonGTASanAndreas.Enabled = state;
+        }
+
         private void ResetComponents()
         {
             initialized = false;
@@ -60,13 +68,14 @@ namespace GTATrilogyRadioHandler
         {
             listBoxPrograms.Items.Clear();
 
-            foreach(var program in Config.Instance().Programs)
+            foreach (var program in Config.Instance().Programs)
             {
+                // TODO: Custom List Box Item with faint red background if program isn't open
                 listBoxPrograms.Items.Add(program);
             }
         }
 
-        private void OnTimerTick(object sender, System.Timers.ElapsedEventArgs e)
+        private void OnTimerTick(object? sender, System.Timers.ElapsedEventArgs e)
         {
             if (!initialized)
             {
@@ -81,18 +90,6 @@ namespace GTATrilogyRadioHandler
             }
 
             VolumeMixer.SetProgramsMuted(Config.Instance().Programs, mute);
-        }
-
-        private void OnClosing(object sender, FormClosingEventArgs e)
-        {
-            VolumeMixer.SetProgramsMuted(Config.Instance().Programs, false);
-        }
-
-        private void SetInitializeButtonStates(bool state)
-        {
-            buttonGTA3.Enabled = state;
-            buttonGTAViceCity.Enabled = state;
-            buttonGTASanAndreas.Enabled = state;
         }
 
         private void HookGame(string game)
@@ -162,11 +159,11 @@ namespace GTATrilogyRadioHandler
 
         private void ButtonAddPrograms_Click(object sender, EventArgs e)
         {
-            FormAddProgram formAddProgram = new FormAddProgram(Config.Instance().Programs);
+            FormAddPrograms formAddPrograms = new FormAddPrograms(Config.Instance().Programs);
 
             buttonAddPrograms.Enabled = false;
 
-            formAddProgram.OnProgramsAdded += (_sender, _e) =>
+            formAddPrograms.OnProgramsAdded += (_sender, _e) =>
             {
                 this.PerformSafely(() =>
                 {
@@ -184,7 +181,7 @@ namespace GTATrilogyRadioHandler
                 });
             };
 
-            formAddProgram.FormClosed += (_sender, _e) =>
+            formAddPrograms.FormClosed += (_sender, _e) =>
             {
                 this.PerformSafely(() =>
                 {
@@ -192,7 +189,7 @@ namespace GTATrilogyRadioHandler
                 });
             };
 
-            formAddProgram.ShowDialog();
+            formAddPrograms.ShowDialog();
         }
 
         private void ListBoxPrograms_KeyDown(object sender, KeyEventArgs e)

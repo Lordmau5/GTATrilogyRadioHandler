@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.31912.275
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GTATrilogyRadioHandler", "GTATrilogyRadioHandler\GTATrilogyRadioHandler.csproj", "{606D3F13-11EF-418D-9D54-B44EFB4E172A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GTATrilogyRadioHandler", "GTATrilogyRadioHandler\GTATrilogyRadioHandler.csproj", "{EF1885A4-9A55-4BE1-949C-B2B5C7B59BB5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -13,19 +13,19 @@ Global
 		Release|x64 = Release|x64
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{606D3F13-11EF-418D-9D54-B44EFB4E172A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{606D3F13-11EF-418D-9D54-B44EFB4E172A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{606D3F13-11EF-418D-9D54-B44EFB4E172A}.Debug|x64.ActiveCfg = Debug|x64
-		{606D3F13-11EF-418D-9D54-B44EFB4E172A}.Debug|x64.Build.0 = Debug|x64
-		{606D3F13-11EF-418D-9D54-B44EFB4E172A}.Release|Any CPU.ActiveCfg = Release|x64
-		{606D3F13-11EF-418D-9D54-B44EFB4E172A}.Release|Any CPU.Build.0 = Release|x64
-		{606D3F13-11EF-418D-9D54-B44EFB4E172A}.Release|x64.ActiveCfg = Release|x64
-		{606D3F13-11EF-418D-9D54-B44EFB4E172A}.Release|x64.Build.0 = Release|x64
+		{EF1885A4-9A55-4BE1-949C-B2B5C7B59BB5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EF1885A4-9A55-4BE1-949C-B2B5C7B59BB5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EF1885A4-9A55-4BE1-949C-B2B5C7B59BB5}.Debug|x64.ActiveCfg = Debug|x64
+		{EF1885A4-9A55-4BE1-949C-B2B5C7B59BB5}.Debug|x64.Build.0 = Debug|x64
+		{EF1885A4-9A55-4BE1-949C-B2B5C7B59BB5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EF1885A4-9A55-4BE1-949C-B2B5C7B59BB5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EF1885A4-9A55-4BE1-949C-B2B5C7B59BB5}.Release|x64.ActiveCfg = Release|x64
+		{EF1885A4-9A55-4BE1-949C-B2B5C7B59BB5}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {38A3160E-D458-46CB-A739-22469E6C7D01}
+		SolutionGuid = {4969DA55-B7F1-426B-87B9-37AF3114B231}
 	EndGlobalSection
 EndGlobal
